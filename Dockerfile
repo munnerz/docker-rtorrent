@@ -51,7 +51,7 @@ RUN git clone https://github.com/rakshasa/rtorrent \
 	&& cd rtorrent \
 	&& git reset --hard $RTORRENT_REVISION \
 	&& ./autogen.sh \
-	&& ./configure --prefix=$OUTPUT_DIR --enable-static --disable-shared --with-xmlrpc-c=$OUTPUT_DIR/bin/xmlrpc-c-config \
+	&& ./configure --prefix=$OUTPUT_DIR --enable-static --disable-shared --with-xmlrpc-c \
 	&& make -j2
 
 FROM alpine:3.5
