@@ -32,7 +32,8 @@ RUN apk add --no-cache curl \
 RUN git clone https://github.com/Novik/ruTorrent.git /var/www/html
 RUN chown -R nginx:nginx /var/www/html && \
 	mkdir -p /run/nginx && \
-	rm /etc/nginx/conf.d/default.conf
+	rm /etc/nginx/conf.d/default.conf && \
+	sed -i 's/nobody/nginx/g' /etc/php7/php-fpm.d/www.conf
 
 COPY root/ /
 ENTRYPOINT ["/init"]
