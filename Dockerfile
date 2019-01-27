@@ -69,4 +69,7 @@ COPY --from=build /tmp/rtorrent/src/rtorrent /usr/local/bin/rtorrent
 
 ENV LD_LIBRARY_PATH /out/lib
 
+RUN adduser -D -u 1000 rtorrent
+COPY .rtorrent.rc /home/rtorrent/.rtorrent.rc
+
 ENTRYPOINT ["/usr/local/bin/rtorrent"]
