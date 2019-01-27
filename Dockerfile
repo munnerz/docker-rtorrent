@@ -73,6 +73,7 @@ RUN adduser -D -u 1000 rtorrent
 
 USER rtorrent
 COPY .rtorrent.rc /home/rtorrent/.rtorrent.rc
-VOLUME /home/rtorrent/config.d/
+RUN mkdir -p /home/rtorrent/rtorrent/config.d
+RUN chown -R rtorrent:rtorrent /home/rtorrent
 
 ENTRYPOINT ["/usr/local/bin/rtorrent"]

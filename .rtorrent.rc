@@ -25,7 +25,7 @@ execute.throw = sh, -c, (cat,\
 
 # Load extra config files from (cfg.basedir)/config.d/
 method.insert = cfg.drop_in, private|const|string, (cat, (cfg.basedir), "config.d")
-execute.nothrow = bash, -c, (cat,\
+execute.nothrow = sh, -c, (cat,\
     "find ", (cfg.drop_in), " -name '*.rc' ",\
     "| sort | sed -re 's/^/import=/' >", (cfg.drop_in), "/.import")
 try_import = (cat, (cfg.drop_in), "/.import")
