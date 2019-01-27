@@ -1,3 +1,4 @@
 #!/usr/bin/with-contenv sh
 
+export HOME=/home/rtorrent
 exec s6-setuidgid rtorrent /usr/local/bin/rtorrent
