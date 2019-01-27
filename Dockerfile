@@ -63,7 +63,7 @@ RUN apk add --no-cache \
 		libstdc++ \
 		libgcc \
 		openssl-dev \
-		screen
+		tmux
 
 COPY --from=build /out /out
 COPY --from=build /tmp/rtorrent/src/rtorrent /usr/local/bin/rtorrent
