@@ -62,7 +62,8 @@ RUN apk add --no-cache \
 		zlib \
 		libstdc++ \
 		libgcc \
-		openssl-dev
+		openssl-dev \
+		screen
 
 COPY --from=build /out /out
 COPY --from=build /tmp/rtorrent/src/rtorrent /usr/local/bin/rtorrent
@@ -71,9 +72,10 @@ ENV LD_LIBRARY_PATH /out/lib
 
 RUN adduser -D -u 1000 rtorrent
 
+COPY entrypoint.sh /entrypoint.sh
 COPY .rtorrent.rc /home/rtorrent/.rtorrent.rc
 RUN mkdir -p /home/rtorrent/rtorrent/config.d
 RUN chown -R rtorrent:rtorrent /home/rtorrent
 USER rtorrent
 
-ENTRYPOINT ["/usr/local/bin/rtorrent"]
+ENTRYPOINT ["/entrypoint.sh"]
