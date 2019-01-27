@@ -63,7 +63,7 @@ RUN apk add --no-cache \
 		libstdc++ \
 		libgcc \
 		openssl-dev \
-		tmux
+		curl
 
 COPY --from=build /out /out
 COPY --from=build /tmp/rtorrent/src/rtorrent /usr/local/bin/rtorrent
@@ -78,4 +78,4 @@ RUN mkdir -p /home/rtorrent/rtorrent/config.d
 RUN chown -R rtorrent:rtorrent /home/rtorrent
 USER rtorrent
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/rtorrent"]
