@@ -1,6 +1,7 @@
 FROM alpine:3.6 AS build
 
 RUN apk add --no-cache \
+	  curl \
 	  git \
 	  make \
 	  automake \
@@ -15,9 +16,9 @@ RUN apk add --no-cache \
 	  openssl-dev \
 	  linux-headers
 
-ENV RTORRENT_REVISION 226e670decf92e7adaa845a6982aca4f164ea740
-ENV LIBTORRENT_REVISION c167c5a9e0bcf0df23ae5efd91396aae0e37eb87
-ENV XMLRPC_VERSION 1.39.12
+ENV LIBTORRENT_REVISION v0.13.7
+ENV RTORRENT_REVISION v0.9.7
+ENV XMLRPC_VERSION 1.43.08
 
 ENV OUTPUT_DIR /out
 ENV PATH $PATH:$OUTPUT_DIR/bin
@@ -26,8 +27,7 @@ ENV PKG_CONFIG_PATH $OUTPUT_DIR/lib/pkgconfig
 WORKDIR /tmp
 
 RUN mkdir -p $OUTPUT_DIR
-
-RUN wget "https://downloads.sourceforge.net/project/xmlrpc-c/Xmlrpc-c%20Super%20Stable/$XMLRPC_VERSION/xmlrpc-c-$XMLRPC_VERSION.tgz" \
+RUN curl -o xmlrpc-c-$XMLRPC_VERSION.tgz "https://kent.dl.sourceforge.net/project/xmlrpc-c/Xmlrpc-c%20Super%20Stable/$XMLRPC_VERSION/xmlrpc-c-$XMLRPC_VERSION.tgz" \
 	&& tar -C $OUTPUT_DIR/ -xvf xmlrpc-c-$XMLRPC_VERSION.tgz \
 	&& cd $OUTPUT_DIR/xmlrpc-c-$XMLRPC_VERSION \
 	&& ./configure --prefix=$OUTPUT_DIR \
@@ -54,7 +54,7 @@ RUN git clone https://github.com/rakshasa/rtorrent \
 	&& ./configure --prefix=$OUTPUT_DIR --enable-static --disable-shared --with-xmlrpc-c \
 	&& make -j2
 
-FROM alpine:3.5
+FROM alpine:3.6
 
 RUN apk add --no-cache \
 		ncurses \
