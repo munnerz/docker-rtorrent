@@ -72,7 +72,6 @@ ENV LD_LIBRARY_PATH /out/lib
 
 RUN adduser -D -u 1000 rtorrent
 
-COPY entrypoint.sh /entrypoint.sh
 COPY .rtorrent.rc /home/rtorrent/.rtorrent.rc
 RUN mkdir -p /home/rtorrent/rtorrent/config.d
 RUN chown -R rtorrent:rtorrent /home/rtorrent
